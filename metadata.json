@@ -1,0 +1,6 @@
+{
+  "name": "Cambridge Lesson Plan Generator",
+  "description": "Generate official, curriculum-aligned Cambridge Lower Secondary Mathematics 5E lesson plans with WALT/WILF, SLO integration, differentiation, and export to Word (.docx).",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

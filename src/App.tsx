@@ -50,14 +50,32 @@ export default function App() {
   const handleGeneratePlan = async (formParams: any) => {
     try {
       setIsGenerating(true);
-      const res = await fetch('/api/generate-lesson-plan', {
+      const res = await fetch('/api/gemini', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formParams),
+        body: JSON.stringify({
+          action: 'generate-lesson-plan',
+          ...formParams,
+        }),
       });
 
+      // Check res.ok before res.json() to prevent HTML 404/500 JSON parse crashes
+      if (!res.ok) {
+        let errorMessage = `Server error (HTTP ${res.status})`;
+        try {
+          const errData = await res.json();
+          console.error('Gemini API Error Response:', res.status, errData);
+          errorMessage = errData.error || errData.message || errorMessage;
+        } catch {
+          const rawText = await res.text();
+          console.error('Gemini API Non-JSON Response:', res.status, rawText);
+          errorMessage = rawText || errorMessage;
+        }
+        throw new Error(errorMessage);
+      }
+
       const data = await res.json();
-      if (!res.ok || !data.success) {
+      if (!data.success || !data.plan) {
         throw new Error(data.error || 'Failed to generate plan');
       }
 
@@ -81,17 +99,33 @@ export default function App() {
     try {
       setIsRegenerating(true);
       setRegeneratingSection(section);
-      const res = await fetch('/api/regenerate-section', {
+      const res = await fetch('/api/gemini', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          action: 'regenerate-section',
           section,
           currentPlan: plan,
         }),
       });
 
+      // Check res.ok before res.json()
+      if (!res.ok) {
+        let errorMessage = `Server error (HTTP ${res.status})`;
+        try {
+          const errData = await res.json();
+          console.error('Gemini API Error Response:', res.status, errData);
+          errorMessage = errData.error || errData.message || errorMessage;
+        } catch {
+          const rawText = await res.text();
+          console.error('Gemini API Non-JSON Response:', res.status, rawText);
+          errorMessage = rawText || errorMessage;
+        }
+        throw new Error(errorMessage);
+      }
+
       const data = await res.json();
-      if (!res.ok || !data.success) {
+      if (!data.success || !data.updatedFields) {
         throw new Error(data.error || 'Failed to regenerate section');
       }
 

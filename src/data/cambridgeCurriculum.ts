@@ -30,7 +30,7 @@ export const CAMBRIDGE_CURRICULUM_PRESETS: CurriculumTopic[] = [
       'Multiply and divide directed numbers using sign rules and number line representations.',
       'Understand and calculate positive integer powers and square roots of square numbers up to 144.',
     ],
-    suggestedKeywords: 'Integer (bilangan bulat), Directed number (bilangan berarah), Power (pangkat), Square root (akar kuadrat), Absolute value (nilai mutlak)',
+    suggestedKeywords: 'Integer, Directed number, Power, Square root, Absolute value',
     textbookRef: "Learner's Book 7, Unit 1, pp. 6–18",
     defaultAOs: {
       AO1: 'Recall rules for calculating with positive and negative integers.',
@@ -193,7 +193,7 @@ export const DEFAULT_LESSON_PLAN: import('../types/lessonPlan').LessonPlanData =
   lesson: '1',
   total_lesson: '6',
   kelas: '7',
-  duration: '80 min',
+  duration: '80 minutes',
   date_L: '20',
   month_L: '10',
   year_L: '2026',
@@ -218,14 +218,14 @@ export const DEFAULT_LESSON_PLAN: import('../types/lessonPlan').LessonPlanData =
   SLO_3: 'Identify misconceptions in integer subtraction and self-correct using zero-pair counters.',
   SLO_4: 'Devise creative visual analogies or game rules to explain negative numbers to peers.',
 
-  keyword: 'Integer (bilangan bulat), Directed number (bilangan berarah), Zero pair (pasangan nol), Absolute value (nilai mutlak), Difference (selisih)',
+  keyword: 'Integer, Directed number, Zero pair, Absolute value, Difference',
 
   struggledscaff_1: 'Provide laminated vertical number lines with colour-coded positive (blue) and negative (red) arrows.',
   struggledscaff_2: 'Use two-colour counters (yellow = +1, red = -1) to physically model zero pairs before abstract calculation.',
   struggledscaff_3: 'Supply sentence frames: "Starting at __, moving __ units because __ gives a result of __".',
 
-  ealsupport_1: 'Provide bilingual visual vocabulary mat with English-Bahasa Indonesia terms and diagram representations.',
-  ealsupport_2: 'Encourage paired talk in home language for 60 seconds before sharing in English.',
+  ealsupport_1: 'Provide visual vocabulary mat with English mathematical terms, definitions, and diagram representations.',
+  ealsupport_2: 'Encourage structured peer discussion using English mathematical sentence starters before whole-class sharing.',
   ealsupport_3: 'Annotate all word problems with visual icons (thermometer, submarine, bank deposit/withdrawal).',
 
   senscaff_1: 'Provide clear, enlarged font worksheets with ample spacing between calculation steps.',
@@ -236,31 +236,31 @@ export const DEFAULT_LESSON_PLAN: import('../types/lessonPlan').LessonPlanData =
   extensiontask_2: 'Create a four-quadrant submarine coordinate puzzle with directed distance vectors.',
   extensiontask_3: 'Critique and disprove a fictional student\'s claim that "subtracting always makes a number smaller".',
 
-  engage_t: '10',
+  engage_t: '0-10 minutes',
   engage: 'Teacher displays real-time weather data comparing Mount Everest summit (-28°C), Jakarta (+32°C), and Yakutsk (-45°C). Students calculate the temperature gap between Jakarta and Yakutsk on mini-whiteboards. Teacher prompts: "Can temperature go below zero? What does 0°C mean in physical science?" Students turn and talk for 2 minutes to define negative numbers in daily life.',
   assessment_engage1: 'Observation of mini-whiteboard temperature gap answers',
   assessment_engage2: 'Targeted oral questioning on physical meaning of negative numbers',
   assessment_engage3: 'SLO-1 check: readiness to volunteer initial intuitive ideas',
 
-  explore_t: '25',
+  explore_t: '10-35 minutes',
   explore: 'Students work in pairs with sets of two-colour integer counters (Yellow = +1, Red = -1). Teacher poses Challenge 1: Represent (+3) + (-5) using zero pairs. Challenge 2: Represent (+2) - (-3) using zero pairs (students discover they must introduce neutral zero pairs to subtract negatives). Students document their moves in a structured investigation logbook, noting rules they observe.',
   assessment_explore1: 'Circulating rubrics on physical zero-pair modeling accuracy',
   assessment_explore2: 'Listening to peer dialogue on the necessity of adding zero pairs',
   assessment_explore3: 'SLO-2 & SLO-4 check: collaborative exploration and inventive models',
 
-  explain_t: '15',
+  explain_t: '35-50 minutes',
   explain: 'Selected student pairs present their zero-pair discoveries on the Interactive Flat Panel (IFP). Teacher formalises mathematical definitions: additive inverse, zero pair principle, and directional vector movements on number lines. Teacher explicitly models how subtracting a negative is equivalent to adding its opposite: a - (-b) = a + b, demonstrating both graphically and algebraically.',
   assessment_explain1: 'Student IFP presentation clarity and mathematical vocabulary use',
   assessment_explain2: 'Cold-call questions verifying understanding of the additive inverse',
   assessment_explain3: 'SLO-3 check: reflecting on initial confusion vs formalised concept',
 
-  elaborate_t: '20',
+  elaborate_t: '50-70 minutes',
   elaborate: 'Students transition to differentiated application problems: (1) Core tier solves elevation changes from Dead Sea (-430 m) to Mount Hermon (+2814 m); (2) Extension tier solves bank transaction ledger mysteries with debit/credit balance shifts and missing values; (3) Teacher convenes a targeted guided table for students requiring concrete counters.',
   assessment_elaborate1: 'Review of tiered problem-solving worksheets in real-time',
   assessment_elaborate2: 'Spot-checks on correct unit inclusion (m, USD, °C)',
   assessment_elaborate3: 'SLO-2 check: independent diligence and academic responsibility',
 
-  evaluate_t: '10',
+  evaluate_t: '70-80 minutes',
   evaluate: 'Students complete an individual 3-question Exit Ticket covering: Q1 (AO1: Calculate -14 - (-8)), Q2 (AO2: Real-world elevation change problem), Q3 (AO3: Justify whether subtracting a negative number always increases the value). Students submit slips into "Got It / Need Help" reflection boxes before dismissal.',
   assessment_evaluate1: 'Individual exit ticket submission marking for AO1/AO2/AO3',
   assessment_evaluate2: 'Exit ticket (AO1/AO2/AO3). Self-assessment rating (1 to 4 stars)',

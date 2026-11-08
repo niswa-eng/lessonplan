@@ -78,7 +78,7 @@ const G7_UNITS: UnitItem[] = [
         number: '1.1',
         title: 'Adding and subtracting integers',
         fullTitle: '1.1 Adding and subtracting integers',
-        suggestedKeywords: 'Integer (bilangan bulat), Directed number (bilangan berarah), Zero pair (pasangan nol), Absolute value (nilai mutlak)',
+        suggestedKeywords: 'Integer, Directed number, Zero pair, Absolute value',
         objectives: [
           makeObj('7Ni.01', 'Estimate, add and subtract integers, recognising and using inverse operations.', 'Grade 7', G7_BOOK, '1', 'Integers', '1.1', 'Adding and subtracting integers'),
           makeObj('7Ni.02', 'Understand that brackets can be used to alter the order of operations.', 'Grade 7', G7_BOOK, '1', 'Integers', '1.1', 'Adding and subtracting integers'),
@@ -97,7 +97,7 @@ const G7_UNITS: UnitItem[] = [
         number: '1.3',
         title: 'Lowest common multiples',
         fullTitle: '1.3 Lowest common multiples',
-        suggestedKeywords: 'Multiple (kelipatan), Common multiple (kelipatan persekutuan), LCM / KPK',
+        suggestedKeywords: 'Multiple, Common multiple, Lowest Common Multiple (LCM)',
         objectives: [
           makeObj('7Ni.04', 'Understand lowest common multiple and highest common factor and find them for two numbers.', 'Grade 7', G7_BOOK, '1', 'Integers', '1.3', 'Lowest common multiples'),
         ],
@@ -124,7 +124,7 @@ const G7_UNITS: UnitItem[] = [
         number: '1.6',
         title: 'Square roots and cube roots',
         fullTitle: '1.6 Square roots and cube roots',
-        suggestedKeywords: 'Square number (bilangan kuadrat), Cube number (bilangan kubik), Square root (akar kuadrat), Cube root (akar kubik)',
+        suggestedKeywords: 'Square number, Cube number, Square root, Cube root',
         objectives: [
           makeObj('7Ni.06', 'Understand the relationship between squares and corresponding square roots, and cubes and cube roots.', 'Grade 7', G7_BOOK, '1', 'Integers', '1.6', 'Square roots and cube roots'),
         ],
@@ -141,7 +141,7 @@ const G7_UNITS: UnitItem[] = [
         number: '2.1',
         title: 'Constructing expressions',
         fullTitle: '2.1 Constructing expressions',
-        suggestedKeywords: 'Variable (variabel), Term (suku), Expression (bentuk aljabar)',
+        suggestedKeywords: 'Variable, Term, Expression',
         objectives: [
           makeObj('7Ae.01', 'Understand that letters have different roles in algebra, including representing unknown numbers or variables.', 'Grade 7', G7_BOOK, '2', 'Expressions, formulae and equations', '2.1', 'Constructing expressions'),
         ],
@@ -150,7 +150,7 @@ const G7_UNITS: UnitItem[] = [
         number: '2.2',
         title: 'Using expressions and formulae',
         fullTitle: '2.2 Using expressions and formulae',
-        suggestedKeywords: 'Formula (rumus), Substitution (substitusi), Evaluate (menghitung nilai)',
+        suggestedKeywords: 'Formula, Substitution, Evaluate',
         objectives: [
           makeObj('7Ae.02', 'Substitute positive integers into simple linear expressions and formulae.', 'Grade 7', G7_BOOK, '2', 'Expressions, formulae and equations', '2.2', 'Using expressions and formulae'),
         ],
@@ -177,7 +177,7 @@ const G7_UNITS: UnitItem[] = [
         number: '2.5',
         title: 'Constructing and solving equations',
         fullTitle: '2.5 Constructing and solving equations',
-        suggestedKeywords: 'Equation (persamaan), Inverse operation (operasi invers), Solution (penyelesaian)',
+        suggestedKeywords: 'Equation, Inverse operation, Solution',
         objectives: [
           makeObj('7Ae.05', 'Construct and solve linear equations with integer coefficients (unknown on one side).', 'Grade 7', G7_BOOK, '2', 'Expressions, formulae and equations', '2.5', 'Constructing and solving equations'),
         ],
@@ -203,7 +203,7 @@ const G7_UNITS: UnitItem[] = [
         number: '3.1',
         title: 'Multiplying and dividing by powers of 10',
         fullTitle: '3.1 Multiplying and dividing by powers of 10',
-        suggestedKeywords: 'Power of 10 (pangkat 10), Place value shift (pergeseran nilai tempat)',
+        suggestedKeywords: 'Power of 10, Place value shift',
         objectives: [
           makeObj('7Np.01', 'Multiply and divide whole numbers and decimals by positive powers of 10.', 'Grade 7', G7_BOOK, '3', 'Place value and rounding', '3.1', 'Multiplying and dividing by powers of 10'),
         ],
@@ -282,7 +282,7 @@ const G7_UNITS: UnitItem[] = [
         number: '5.1',
         title: 'A sum of 360°',
         fullTitle: '5.1 A sum of 360°',
-        suggestedKeywords: 'Angles at a point (sudut pada satu titik), Full turn (putaran penuh 360°)',
+        suggestedKeywords: 'Angles at a point, Full turn (360°)',
         objectives: [
           makeObj('7Gg.01', 'Calculate angles at a point, angles on a straight line, and vertically opposite angles.', 'Grade 7', G7_BOOK, '5', 'Angles and constructions', '5.1', 'A sum of 360°'),
         ],
@@ -300,7 +300,7 @@ const G7_UNITS: UnitItem[] = [
         number: '5.3',
         title: 'Drawing lines and quadrilaterals',
         fullTitle: '5.3 Drawing lines and quadrilaterals',
-        suggestedKeywords: 'Protractor (busur derajat), Ruler (penggaris), Angle sum of quadrilateral (jumlah sudut segiempat 360°)',
+        suggestedKeywords: 'Protractor, Ruler, Angle sum of quadrilateral (360°)',
         objectives: [
           makeObj('7Gg.03', 'Use a protractor and ruler to draw and measure lines, angles, and quadrilaterals.', 'Grade 7', G7_BOOK, '5', 'Angles and constructions', '5.3', 'Drawing lines and quadrilaterals'),
         ],
@@ -370,7 +370,7 @@ const G7_UNITS: UnitItem[] = [
         number: '7.4',
         title: 'Dividing fractions',
         fullTitle: '7.4 Dividing fractions',
-        suggestedKeywords: 'Reciprocal (kebalikan / resiprokal), Invert and multiply (balik dan kali)',
+        suggestedKeywords: 'Reciprocal, Invert and multiply',
         objectives: [
           makeObj('7Nf.09', 'Divide proper fractions by integers and proper fractions using reciprocals.', 'Grade 7', G7_BOOK, '7', 'Fractions', '7.4', 'Dividing fractions'),
         ],
@@ -396,7 +396,7 @@ const G7_UNITS: UnitItem[] = [
         number: '8.1',
         title: 'Identifying the symmetry of 2D shapes',
         fullTitle: '8.1 Identifying the symmetry of 2D shapes',
-        suggestedKeywords: 'Line symmetry (simetri lipat), Rotational symmetry (simetri putar), Order of rotational symmetry (tingkat simetri putar)',
+        suggestedKeywords: 'Line symmetry, Rotational symmetry, Order of rotational symmetry',
         objectives: [
           makeObj('7Gg.04', 'Identify line symmetry and rotational symmetry in two-dimensional shapes.', 'Grade 7', G7_BOOK, '8', 'Shapes and symmetry', '8.1', 'Identifying the symmetry of 2D shapes'),
         ],
@@ -414,7 +414,7 @@ const G7_UNITS: UnitItem[] = [
         number: '8.3',
         title: 'Recognising congruent shapes',
         fullTitle: '8.3 Recognising congruent shapes',
-        suggestedKeywords: 'Congruent (kongruen / sama dan sebangun), Corresponding sides (sisi bersesuaian)',
+        suggestedKeywords: 'Congruent, Corresponding sides',
         objectives: [
           makeObj('7Gg.06', 'Recognise and use congruent 2D shapes.', 'Grade 7', G7_BOOK, '8', 'Shapes and symmetry', '8.3', 'Recognising congruent shapes'),
         ],
@@ -423,7 +423,7 @@ const G7_UNITS: UnitItem[] = [
         number: '8.4',
         title: '3D shapes',
         fullTitle: '8.4 3D shapes',
-        suggestedKeywords: 'Faces (sisi/bidang), Edges (rusuk), Vertices (titik sudut), Net (jaring-jaring)',
+        suggestedKeywords: 'Faces, Edges, Vertices, Net',
         objectives: [
           makeObj('7Gg.07', 'Identify and describe 3D shapes (prisms, pyramids, cylinders) and their nets.', 'Grade 7', G7_BOOK, '8', 'Shapes and symmetry', '8.4', '3D shapes'),
         ],
@@ -440,7 +440,7 @@ const G7_UNITS: UnitItem[] = [
         number: '9.1',
         title: 'Generating sequences (1)',
         fullTitle: '9.1 Generating sequences (1)',
-        suggestedKeywords: 'Sequence (barisan), Term-to-term rule (aturan suku-ke-suku)',
+        suggestedKeywords: 'Sequence, Term-to-term rule',
         objectives: [
           makeObj('7Ae.07', 'Generate linear sequences from practical patterns and term-to-term rules.', 'Grade 7', G7_BOOK, '9', 'Sequences and functions', '9.1', 'Generating sequences (1)'),
         ],
@@ -449,7 +449,7 @@ const G7_UNITS: UnitItem[] = [
         number: '9.2',
         title: 'Generating sequences (2)',
         fullTitle: '9.2 Generating sequences (2)',
-        suggestedKeywords: 'Arithmetic sequence (barisan aritmetika), Common difference (beda)',
+        suggestedKeywords: 'Arithmetic sequence, Common difference',
         objectives: [
           makeObj('7Ae.08', 'Find missing terms and extend non-linear and geometric sequences.', 'Grade 7', G7_BOOK, '9', 'Sequences and functions', '9.2', 'Generating sequences (2)'),
         ],
@@ -458,7 +458,7 @@ const G7_UNITS: UnitItem[] = [
         number: '9.3',
         title: 'Using the nth term',
         fullTitle: '9.3 Using the nth term',
-        suggestedKeywords: 'nth term (suku ke-n), Position-to-term rule (aturan posisi-ke-suku)',
+        suggestedKeywords: 'nth term, Position-to-term rule',
         objectives: [
           makeObj('7Ae.09', 'Find and use the position-to-term rule (nth term) for linear sequences.', 'Grade 7', G7_BOOK, '9', 'Sequences and functions', '9.3', 'Using the nth term'),
         ],
@@ -554,7 +554,7 @@ const G7_UNITS: UnitItem[] = [
         number: '12.1',
         title: 'Simplifying ratios',
         fullTitle: '12.1 Simplifying ratios',
-        suggestedKeywords: 'Ratio (rasio / perbandingan), Simplest form (bentuk paling sederhana), Parts (bagian)',
+        suggestedKeywords: 'Ratio, Simplest form, Parts',
         objectives: [
           makeObj('7Np.03', 'Understand and use ratio notation, simplifying ratios by dividing by common factors.', 'Grade 7', G7_BOOK, '12', 'Ratio and proportion', '12.1', 'Simplifying ratios'),
         ],
@@ -642,7 +642,7 @@ const G7_UNITS: UnitItem[] = [
         number: '14.3',
         title: 'Translating 2D shapes',
         fullTitle: '14.3 Translating 2D shapes',
-        suggestedKeywords: 'Translation (translasi / pergeseran), Vector shift',
+        suggestedKeywords: 'Translation, Vector shift',
         objectives: [
           makeObj('7Gg.10', 'Translate 2D shapes on a coordinate grid by given units horizontally and vertically.', 'Grade 7', G7_BOOK, '14', 'Position and transformation', '14.3', 'Translating 2D shapes'),
         ],
@@ -660,7 +660,7 @@ const G7_UNITS: UnitItem[] = [
         number: '14.5',
         title: 'Rotating shapes',
         fullTitle: '14.5 Rotating shapes',
-        suggestedKeywords: 'Rotation (rotasi / perputaran), Centre of rotation (pusat rotasi), Clockwise / Anticlockwise',
+        suggestedKeywords: 'Rotation, Centre of rotation, Clockwise / Anticlockwise',
         objectives: [
           makeObj('7Gg.12', 'Rotate 2D shapes through 90° or 180° around a given centre of rotation.', 'Grade 7', G7_BOOK, '14', 'Position and transformation', '14.5', 'Rotating shapes'),
         ],
@@ -890,7 +890,7 @@ const G8_UNITS: UnitItem[] = [
         number: '2.5',
         title: 'Constructing and solving equations',
         fullTitle: '2.5 Constructing and solving equations',
-        suggestedKeywords: 'Unknown on both sides (variabel di kedua sisi), Balance method',
+        suggestedKeywords: 'Unknown on both sides, Balance method',
         objectives: [
           makeObj('8Ae.05', 'Construct and solve linear equations with unknowns on both sides and brackets.', 'Grade 8', G8_BOOK, '2', 'Expressions, formulae and equations', '2.5', 'Constructing and solving equations'),
         ],
@@ -986,7 +986,7 @@ const G8_UNITS: UnitItem[] = [
         number: '5.1',
         title: 'Parallel lines',
         fullTitle: '5.1 Parallel lines',
-        suggestedKeywords: 'Corresponding angles (sudut sehadap), Alternate angles (sudut berseberangan), Interior angles (sudut dalam sepihak), Transversal',
+        suggestedKeywords: 'Corresponding angles, Alternate angles, Interior angles, Transversal',
         objectives: [
           makeObj('8Gg.01', 'Identify and calculate alternate, corresponding, and co-interior angles on parallel lines with a transversal.', 'Grade 8', G8_BOOK, '5', 'Angles and constructions', '5.1', 'Parallel lines'),
         ],
@@ -1004,7 +1004,7 @@ const G8_UNITS: UnitItem[] = [
         number: '5.3',
         title: 'Constructions',
         fullTitle: '5.3 Constructions',
-        suggestedKeywords: 'Perpendicular bisector (garis sumbu), Angle bisector (garis bagi sudut), Compass',
+        suggestedKeywords: 'Perpendicular bisector, Angle bisector, Compass',
         objectives: [
           makeObj('8Gg.03', 'Construct perpendicular bisectors of lines and angle bisectors using compass and straight edge.', 'Grade 8', G8_BOOK, '5', 'Angles and constructions', '5.3', 'Constructions'),
         ],
@@ -1188,7 +1188,7 @@ const G8_UNITS: UnitItem[] = [
         number: '10.1',
         title: 'Percentage increases and decreases',
         fullTitle: '10.1 Percentage increases and decreases',
-        suggestedKeywords: 'Markup, Discount, Simple interest (bunga tunggal), Percentage change',
+        suggestedKeywords: 'Markup, Discount, Simple interest, Percentage change',
         objectives: [
           makeObj('8Nf.11', 'Calculate percentage increases and decreases, and find percentage change in financial contexts.', 'Grade 8', G8_BOOK, '10', 'Percentages', '10.1', 'Percentage increases and decreases'),
         ],
@@ -1319,7 +1319,7 @@ const G8_UNITS: UnitItem[] = [
         number: '14.1',
         title: 'Bearings',
         fullTitle: '14.1 Bearings',
-        suggestedKeywords: 'Three-figure bearing (sudut jurusan 3 angka), Measured clockwise from North',
+        suggestedKeywords: 'Three-figure bearing, Measured clockwise from North',
         objectives: [
           makeObj('8Gg.07', 'Use and interpret three-figure bearings measured clockwise from North.', 'Grade 8', G8_BOOK, '14', 'Position and transformation', '14.1', 'Bearings'),
         ],
@@ -1434,7 +1434,7 @@ const G8_UNITS: UnitItem[] = [
         number: '16.2',
         title: 'Time series graphs',
         fullTitle: '16.2 Time series graphs',
-        suggestedKeywords: 'Time series (grafik deret waktu), Trends (tren data)',
+        suggestedKeywords: 'Time series, Trends',
         objectives: [
           makeObj('8Ss.04', 'Construct and interpret time series graphs to identify trends over time.', 'Grade 8', G8_BOOK, '16', 'Interpreting and discussing results', '16.2', 'Time series graphs'),
         ],
@@ -1443,7 +1443,7 @@ const G8_UNITS: UnitItem[] = [
         number: '16.3',
         title: 'Stem-and-leaf diagram',
         fullTitle: '16.3 Stem-and-leaf diagram',
-        suggestedKeywords: 'Stem, Leaf, Key (kunci diagram batang dan daun)',
+        suggestedKeywords: 'Stem, Leaf, Key',
         objectives: [
           makeObj('8Ss.05', 'Construct and interpret ordered stem-and-leaf diagrams with keys.', 'Grade 8', G8_BOOK, '16', 'Interpreting and discussing results', '16.3', 'Stem-and-leaf diagram'),
         ],
@@ -1495,7 +1495,7 @@ const G9_UNITS: UnitItem[] = [
         number: '1.1',
         title: 'Irrational numbers',
         fullTitle: '1.1 Irrational numbers',
-        suggestedKeywords: 'Rational (bilangan rasional), Irrational (bilangan irasional), Surd (bentuk akar), Non-terminating non-recurring',
+        suggestedKeywords: 'Rational, Irrational, Surd, Non-terminating non-recurring',
         objectives: [
           makeObj('9Ni.01', 'Distinguish between rational and irrational numbers, and identify surds.', 'Grade 9', G9_BOOK, '1', 'Number and calculation', '1.1', 'Irrational numbers'),
         ],
@@ -1504,7 +1504,7 @@ const G9_UNITS: UnitItem[] = [
         number: '1.2',
         title: 'Standard form',
         fullTitle: '1.2 Standard form',
-        suggestedKeywords: 'Scientific notation (bentuk baku / notasi ilmiah), A × 10ⁿ where 1 ≤ A < 10',
+        suggestedKeywords: 'Scientific notation, Standard form, A × 10ⁿ where 1 ≤ A < 10',
         objectives: [
           makeObj('9Ni.02', 'Write very large and very small numbers in standard index form (scientific notation).', 'Grade 9', G9_BOOK, '1', 'Number and calculation', '1.2', 'Standard form'),
         ],
@@ -1575,7 +1575,7 @@ const G9_UNITS: UnitItem[] = [
         number: '2.6',
         title: 'Deriving and using formulae',
         fullTitle: '2.6 Deriving and using formulae',
-        suggestedKeywords: 'Rearranging formulae (mengubah subjek rumus), Change of subject',
+        suggestedKeywords: 'Rearranging formulae, Change of subject',
         objectives: [
           makeObj('9Ae.06', 'Derive formulae and rearrange linear formulae to change the subject.', 'Grade 9', G9_BOOK, '2', 'Expressions and formulae', '2.6', 'Deriving and using formulae'),
         ],
@@ -1610,7 +1610,7 @@ const G9_UNITS: UnitItem[] = [
         number: '3.3',
         title: 'Understanding compound percentages',
         fullTitle: '3.3 Understanding compound percentages',
-        suggestedKeywords: 'Compound interest (bunga majemuk), Repeated percentage change, Depreciation (penyusutan)',
+        suggestedKeywords: 'Compound interest, Repeated percentage change, Depreciation',
         objectives: [
           makeObj('9Nf.02', 'Calculate repeated percentage change and compound interest using multipliers.', 'Grade 9', G9_BOOK, '3', 'Decimals, percentages and rounding', '3.3', 'Understanding compound percentages'),
         ],
@@ -1619,7 +1619,7 @@ const G9_UNITS: UnitItem[] = [
         number: '3.4',
         title: 'Understanding upper and lower bounds',
         fullTitle: '3.4 Understanding upper and lower bounds',
-        suggestedKeywords: 'Upper bound (batas atas), Lower bound (batas bawah), Degree of accuracy',
+        suggestedKeywords: 'Upper bound, Lower bound, Degree of accuracy',
         objectives: [
           makeObj('9Np.02', 'Determine the upper and lower bounds of numbers specified to a given degree of accuracy.', 'Grade 9', G9_BOOK, '3', 'Decimals, percentages and rounding', '3.4', 'Understanding upper and lower bounds'),
         ],
@@ -1645,7 +1645,7 @@ const G9_UNITS: UnitItem[] = [
         number: '4.2',
         title: 'Simultaneous equations',
         fullTitle: '4.2 Simultaneous equations',
-        suggestedKeywords: 'Simultaneous equations (persamaan linear dua variabel), Elimination method, Substitution method',
+        suggestedKeywords: 'Simultaneous equations, Elimination method, Substitution method',
         objectives: [
           makeObj('9Ae.08', 'Construct and solve pairs of linear simultaneous equations by elimination and substitution.', 'Grade 9', G9_BOOK, '4', 'Equations and inequalities', '4.2', 'Simultaneous equations'),
         ],
@@ -1698,7 +1698,7 @@ const G9_UNITS: UnitItem[] = [
         number: '5.4',
         title: 'Constructions',
         fullTitle: '5.4 Constructions',
-        suggestedKeywords: 'Locus / Loci (titik kedudukan), Equidistant from points and lines',
+        suggestedKeywords: 'Locus / Loci, Equidistant from points and lines',
         objectives: [
           makeObj('9Gg.04', 'Construct and solve loci problems involving points equidistant from given points or lines.', 'Grade 9', G9_BOOK, '5', 'Angles', '5.4', 'Constructions'),
         ],
@@ -1707,7 +1707,7 @@ const G9_UNITS: UnitItem[] = [
         number: '5.5',
         title: "Pythagoras' theorem",
         fullTitle: "5.5 Pythagoras' theorem",
-        suggestedKeywords: "Hypotenuse (sisi miring), a² + b² = c², Right-angled triangle, Pythagorean triples",
+        suggestedKeywords: "Hypotenuse, a² + b² = c², Right-angled triangle, Pythagorean triples",
         objectives: [
           makeObj('9Gg.05', "Understand and apply Pythagoras' theorem to calculate unknown sides in right-angled triangles.", 'Grade 9', G9_BOOK, '5', 'Angles', '5.5', "Pythagoras' theorem"),
         ],
@@ -1759,7 +1759,7 @@ const G9_UNITS: UnitItem[] = [
         number: '7.2',
         title: 'Areas of compound shapes',
         fullTitle: '7.2 Areas of compound shapes',
-        suggestedKeywords: 'Compound shapes (bangun gabungan), Decomposition of shapes',
+        suggestedKeywords: 'Compound shapes, Decomposition of shapes',
         objectives: [
           makeObj('9Gg.07', 'Calculate areas of compound 2D shapes combining rectangles, triangles, parallelograms, and circles.', 'Grade 9', G9_BOOK, '7', 'Shapes and measurements', '7.2', 'Areas of compound shapes'),
         ],
@@ -1838,7 +1838,7 @@ const G9_UNITS: UnitItem[] = [
         number: '9.1',
         title: 'Generating sequences',
         fullTitle: '9.1 Generating sequences',
-        suggestedKeywords: 'Quadratic sequences (barisan kuadratik), Second differences',
+        suggestedKeywords: 'Quadratic sequences, Second differences',
         objectives: [
           makeObj('9Ae.10', 'Generate terms of quadratic sequences and examine second differences.', 'Grade 9', G9_BOOK, '9', 'Sequences and functions', '9.1', 'Generating sequences'),
         ],
@@ -1926,7 +1926,7 @@ const G9_UNITS: UnitItem[] = [
         number: '11.2',
         title: 'Direct and inverse proportion',
         fullTitle: '11.2 Direct and inverse proportion',
-        suggestedKeywords: 'Inverse proportion (perbandingan berbalik nilai), y = k/x, Reciprocal graph',
+        suggestedKeywords: 'Inverse proportion, y = k/x, Reciprocal graph',
         objectives: [
           makeObj('9Np.04', 'Recognise and solve problems involving inverse proportion (e.g. workers and completion time).', 'Grade 9', G9_BOOK, '11', 'Ratio and proportion', '11.2', 'Direct and inverse proportion'),
         ],
@@ -1952,7 +1952,7 @@ const G9_UNITS: UnitItem[] = [
         number: '12.2',
         title: 'Independent events',
         fullTitle: '12.2 Independent events',
-        suggestedKeywords: 'Independent events (kejadian saling bebas), P(A and B) = P(A) × P(B)',
+        suggestedKeywords: 'Independent events, P(A and B) = P(A) × P(B)',
         objectives: [
           makeObj('9Sp.02', 'Know and use the multiplication rule for independent events: P(A and B) = P(A) × P(B).', 'Grade 9', G9_BOOK, '12', 'Probability', '12.2', 'Independent events'),
         ],
@@ -1961,7 +1961,7 @@ const G9_UNITS: UnitItem[] = [
         number: '12.3',
         title: 'Combined events',
         fullTitle: '12.3 Combined events',
-        suggestedKeywords: 'Tree diagram (diagram pohon), Branch probabilities',
+        suggestedKeywords: 'Tree diagram, Branch probabilities',
         objectives: [
           makeObj('9Sp.03', 'Use probability tree diagrams to calculate probabilities of successive combined events.', 'Grade 9', G9_BOOK, '12', 'Probability', '12.3', 'Combined events'),
         ],
@@ -1987,7 +1987,7 @@ const G9_UNITS: UnitItem[] = [
         number: '13.1',
         title: 'Bearings and scale drawings',
         fullTitle: '13.1 Bearings and scale drawings',
-        suggestedKeywords: 'Navigation bearings, Back bearings (bearing balik ±180°)',
+        suggestedKeywords: 'Navigation bearings, Back bearings (±180°)',
         objectives: [
           makeObj('9Gg.09', 'Use bearings and scale drawings to solve complex navigational and positional problems.', 'Grade 9', G9_BOOK, '13', 'Position and transformation', '13.1', 'Bearings and scale drawings'),
         ],
@@ -2049,7 +2049,7 @@ const G9_UNITS: UnitItem[] = [
         number: '14.3',
         title: 'Symmetry in three-dimensional shapes',
         fullTitle: '14.3 Symmetry in three-dimensional shapes',
-        suggestedKeywords: 'Plane symmetry (bidang simetri), Axis of rotational symmetry (sumbu simetri putar)',
+        suggestedKeywords: 'Plane symmetry, Axis of rotational symmetry',
         objectives: [
           makeObj('9Gg.15', 'Identify planes of symmetry and axes of rotational symmetry in 3D shapes.', 'Grade 9', G9_BOOK, '14', 'Volume, surface area and symmetry', '14.3', 'Symmetry in three-dimensional shapes'),
         ],
@@ -2075,7 +2075,7 @@ const G9_UNITS: UnitItem[] = [
         number: '15.2',
         title: 'Scatter graphs',
         fullTitle: '15.2 Scatter graphs',
-        suggestedKeywords: 'Scatter graph (diagram pencar), Correlation (korelasi positif/negatif/nol), Line of best fit',
+        suggestedKeywords: 'Scatter graph, Correlation, Line of best fit',
         objectives: [
           makeObj('9Ss.04', 'Draw and interpret scatter graphs, identify correlation, and draw a line of best fit by eye.', 'Grade 9', G9_BOOK, '15', 'Interpreting and discussing results', '15.2', 'Scatter graphs'),
         ],
@@ -2111,44 +2111,106 @@ const G9_UNITS: UnitItem[] = [
   },
 ];
 
+function addUnitTestToUnits(
+  units: UnitItem[],
+  grade: 'Grade 7' | 'Grade 8' | 'Grade 9',
+  book: string
+): UnitItem[] {
+  return units.map((unit) => {
+    // Collect all unique objectives from this unit's existing subtopics
+    const allUnitObjs = unit.subtopics.flatMap((s) => s.objectives);
+    const uniqueObjsMap = new Map<string, CambridgeObjective>();
+    for (const obj of allUnitObjs) {
+      if (!uniqueObjsMap.has(obj.code)) {
+        uniqueObjsMap.set(obj.code, {
+          ...obj,
+          subtopicNumber: 'Unit Test',
+          subtopicTitle: 'Unit Test',
+        });
+      }
+    }
+    const unitObjectives = Array.from(uniqueObjsMap.values());
+
+    const allKeywords = Array.from(
+      new Set(
+        unit.subtopics
+          .flatMap((s) => (s.suggestedKeywords ? s.suggestedKeywords.split(',') : []))
+          .map((k) => k.trim())
+          .filter(Boolean)
+      )
+    )
+      .slice(0, 6)
+      .join(', ');
+
+    const unitTestSubtopic: SubtopicItem = {
+      number: 'Unit Test',
+      title: 'Unit Test',
+      fullTitle: 'Unit Test',
+      suggestedKeywords:
+        allKeywords ||
+        `Unit ${unit.number} assessment, Comprehensive review, Mastery test`,
+      objectives:
+        unitObjectives.length > 0
+          ? unitObjectives
+          : [
+              makeObj(
+                `${grade.replace('Grade ', '')}UT.${unit.number.padStart(2, '0')}`,
+                `Demonstrate comprehensive understanding and problem-solving mastery across all Unit ${unit.number} (${unit.title}) learning objectives in a summative unit test.`,
+                grade,
+                book,
+                unit.number,
+                unit.title,
+                'Unit Test',
+                'Unit Test'
+              ),
+            ],
+    };
+
+    return {
+      ...unit,
+      subtopics: [...unit.subtopics, unitTestSubtopic],
+    };
+  });
+}
+
 // Complete Catalogue grouped by Grade
 export const CAMBRIDGE_GRADES: GradeItem[] = [
   {
     id: 'Grade 7',
-    title: 'Grade 7 (SMP Kelas 7)',
+    title: 'Grade 7 (Year 7)',
     yearGroupNumber: '7',
     books: [
       {
         id: 'y7-book',
         title: G7_BOOK,
         grade: 'Grade 7',
-        units: G7_UNITS,
+        units: addUnitTestToUnits(G7_UNITS, 'Grade 7', G7_BOOK),
       },
     ],
   },
   {
     id: 'Grade 8',
-    title: 'Grade 8 (SMP Kelas 8)',
+    title: 'Grade 8 (Year 8)',
     yearGroupNumber: '8',
     books: [
       {
         id: 'y8-book',
         title: G8_BOOK,
         grade: 'Grade 8',
-        units: G8_UNITS,
+        units: addUnitTestToUnits(G8_UNITS, 'Grade 8', G8_BOOK),
       },
     ],
   },
   {
     id: 'Grade 9',
-    title: 'Grade 9 (SMP Kelas 9)',
+    title: 'Grade 9 (Year 9)',
     yearGroupNumber: '9',
     books: [
       {
         id: 'y9-book',
         title: G9_BOOK,
         grade: 'Grade 9',
-        units: G9_UNITS,
+        units: addUnitTestToUnits(G9_UNITS, 'Grade 9', G9_BOOK),
       },
     ],
   },

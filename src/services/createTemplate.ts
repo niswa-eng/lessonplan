@@ -165,7 +165,7 @@ export async function createAuthoritativeTemplate(outputPath: string) {
               new Paragraph({
                 children: [
                   new TextRun({ text: 'Year Group\n', font, size: 15, bold: true, color: primaryTeal }),
-                  new TextRun({ text: 'Year {{kelas}} (SMP)', font, size: 16, color: '1E293B' }),
+                  new TextRun({ text: 'Year {{kelas}}', font, size: 16, color: '1E293B' }),
                 ],
               }),
             ],
@@ -385,7 +385,7 @@ export async function createAuthoritativeTemplate(outputPath: string) {
                 children: [
                   new TextRun({ text: 'Language Objectives (CLIL): ', font, size: 15, bold: true, color: primaryTeal }),
                   new TextRun({ text: 'Key terms: {{keyword}}. ', font, size: 15, color: '0F172A' }),
-                  new TextRun({ text: 'EAL students: bilingual vocabulary mat provided (English–Bahasa Indonesia).', font, size: 14, italics: true, color: '475569' }),
+                  new TextRun({ text: 'EAL students: visual mathematical vocabulary mat provided with definitions and sentence frames.', font, size: 14, italics: true, color: '475569' }),
                 ],
               }),
             ],
@@ -537,7 +537,7 @@ export async function createAuthoritativeTemplate(outputPath: string) {
           new TableCell({
             borders: defaultBorder,
             margins: { top: 70, bottom: 70, left: 50, right: 50 },
-            children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: '{{engage_t}} min', font, size: 14, bold: true, color: '1E293B' })] })],
+            children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: '{{engage_t}}', font, size: 14, bold: true, color: '1E293B' })] })],
           }),
           new TableCell({
             borders: defaultBorder,
@@ -566,7 +566,7 @@ export async function createAuthoritativeTemplate(outputPath: string) {
           new TableCell({
             borders: defaultBorder,
             margins: { top: 70, bottom: 70, left: 50, right: 50 },
-            children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: '{{explore_t}} min', font, size: 14, bold: true, color: '1E293B' })] })],
+            children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: '{{explore_t}}', font, size: 14, bold: true, color: '1E293B' })] })],
           }),
           new TableCell({
             borders: defaultBorder,
@@ -595,7 +595,7 @@ export async function createAuthoritativeTemplate(outputPath: string) {
           new TableCell({
             borders: defaultBorder,
             margins: { top: 70, bottom: 70, left: 50, right: 50 },
-            children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: '{{explain_t}} min', font, size: 14, bold: true, color: '1E293B' })] })],
+            children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: '{{explain_t}}', font, size: 14, bold: true, color: '1E293B' })] })],
           }),
           new TableCell({
             borders: defaultBorder,
@@ -624,7 +624,7 @@ export async function createAuthoritativeTemplate(outputPath: string) {
           new TableCell({
             borders: defaultBorder,
             margins: { top: 70, bottom: 70, left: 50, right: 50 },
-            children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: '{{elaborate_t}} min', font, size: 14, bold: true, color: '1E293B' })] })],
+            children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: '{{elaborate_t}}', font, size: 14, bold: true, color: '1E293B' })] })],
           }),
           new TableCell({
             borders: defaultBorder,
@@ -653,7 +653,7 @@ export async function createAuthoritativeTemplate(outputPath: string) {
           new TableCell({
             borders: defaultBorder,
             margins: { top: 70, bottom: 70, left: 50, right: 50 },
-            children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: '{{evaluate_t}} min', font, size: 14, bold: true, color: '1E293B' })] })],
+            children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: '{{evaluate_t}}', font, size: 14, bold: true, color: '1E293B' })] })],
           }),
           new TableCell({
             borders: defaultBorder,

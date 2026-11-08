@@ -15,6 +15,8 @@ import {
   RotateCcw,
 } from 'lucide-react';
 
+import { parsePhaseMinutes, parseTotalMinutes } from '../utils/timingUtils';
+
 interface LessonPlanFormProps {
   plan: LessonPlanData;
   onUpdatePlan: (updated: Partial<LessonPlanData>) => void;
@@ -38,12 +40,12 @@ export const LessonPlanForm: React.FC<LessonPlanFormProps> = ({
   );
 
   // Parse total duration in minutes
-  const totalDurationMinutes = parseInt(plan.duration) || 80;
-  const engageM = parseInt(plan.engage_t) || 10;
-  const exploreM = parseInt(plan.explore_t) || 25;
-  const explainM = parseInt(plan.explain_t) || 15;
-  const elaborateM = parseInt(plan.elaborate_t) || 20;
-  const evaluateM = parseInt(plan.evaluate_t) || 10;
+  const totalDurationMinutes = parseTotalMinutes(plan.duration, 80);
+  const engageM = parsePhaseMinutes(plan.engage_t, 10);
+  const exploreM = parsePhaseMinutes(plan.explore_t, 25);
+  const explainM = parsePhaseMinutes(plan.explain_t, 15);
+  const elaborateM = parsePhaseMinutes(plan.elaborate_t, 20);
+  const evaluateM = parsePhaseMinutes(plan.evaluate_t, 10);
   const sum5E = engageM + exploreM + explainM + elaborateM + evaluateM;
   const isTimingBalanced = sum5E === totalDurationMinutes;
 
@@ -77,36 +79,114 @@ export const LessonPlanForm: React.FC<LessonPlanFormProps> = ({
       lo3 = `Students will be able to: ${objs[2].description} (${objs[2].code})`;
     }
 
+    const isUnitTest =
+      sel.subtopicNumber === 'Unit Test' ||
+      sel.subtopicTitle.toLowerCase().includes('unit test');
+
+    const unitTopicContext = sel.unitTitle.toLowerCase().includes('transformation')
+      ? 'transformations and vectors'
+      : sel.unitTitle.toLowerCase();
+
     onUpdatePlan({
       kelas: sel.yearGroupNumber,
       unit: sel.unitNumber,
-      tittle_unit: `${sel.unitTitle} — ${sel.subtopicNumber} ${sel.subtopicTitle}`,
+      tittle_unit: isUnitTest
+        ? `${sel.unitTitle} — Unit Test`
+        : `${sel.unitTitle} — ${sel.subtopicNumber} ${sel.subtopicTitle}`,
       LB: `${sel.bookTitle}, Unit ${sel.unitNumber}`,
-      slide: `IFP Presentation — ${sel.subtopicNumber} ${sel.subtopicTitle}`,
+      slide: isUnitTest
+        ? `IFP Presentation — Unit ${sel.unitNumber} Unit Test`
+        : `IFP Presentation — ${sel.subtopicNumber} ${sel.subtopicTitle}`,
       keyword: sel.suggestedKeywords || plan.keyword,
       LO_1: lo1,
       LO_2: lo2,
       LO_3: lo3,
-      AO1: `Recall definitions, facts, and standard operations for ${sel.subtopicTitle}.`,
-      AO2: `Apply knowledge of ${sel.subtopicTitle} to solve authentic and multi-step problems.`,
-      AO3: `Explain and justify mathematical decisions in ${sel.subtopicTitle} using rigorous reasoning.`,
+      AO1: isUnitTest
+        ? `Recall definitions, mathematical facts, and procedures across Unit ${sel.unitNumber} (${sel.unitTitle}).`
+        : `Recall definitions, facts, and standard operations for ${sel.subtopicTitle}.`,
+      AO2: isUnitTest
+        ? `Apply knowledge of Unit ${sel.unitNumber} (${sel.unitTitle}) to solve varied test problems accurately.`
+        : `Apply knowledge of ${sel.subtopicTitle} to solve authentic and multi-step problems.`,
+      AO3: isUnitTest
+        ? `Explain, justify, and evaluate mathematical reasoning and solutions across Unit ${sel.unitNumber}.`
+        : `Explain and justify mathematical decisions in ${sel.subtopicTitle} using rigorous reasoning.`,
+      ...(isUnitTest
+        ? {
+            duration: '80 minutes',
+            engage_t: '0-20 minutes',
+            explore_t: '20-20 minutes',
+            explain_t: '20-20 minutes',
+            elaborate_t: '20-75 minutes',
+            evaluate_t: '75-80 minutes',
+            engage: `1. Greeting, praying, attendance, and checking classroom situation. (5 minutes)\n2. Teacher activates prior knowledge through brief questioning. (15 minutes)`,
+            assessment_engage1: `Brief oral questioning on ${unitTopicContext} (AO1)`,
+            assessment_engage2: 'Checking student attendance, seating readiness, and test environment',
+            assessment_engage3: 'SLO-1 Confident: Active participation during pre-test review',
+            explore: 'Preparation and distribution of Chapter End Test papers.',
+            assessment_explore1: 'Checking permitted materials and calculators',
+            assessment_explore2: 'Readying students for independent test conditions',
+            assessment_explore3: 'SLO-2 Responsible: Academic honesty readiness',
+            explain: 'Teacher clarifies exam rules, duration (55 minutes), and instructions.',
+            assessment_explain1: 'Verification that all students have test papers and necessary stationery',
+            assessment_explain2: 'Clarification of examination rules and integrity',
+            assessment_explain3: 'SLO-2 Responsible: Following examination guidelines',
+            elaborate: 'Students complete the Chapter End Test individually. (55 minutes)',
+            assessment_elaborate1: 'Teacher monitors the process in class (AO2/AO3)',
+            assessment_elaborate2: 'Active invigilation and observation of time management',
+            assessment_elaborate3: 'SLO-2 Responsible: Independent problem solving and academic honesty',
+            evaluate: 'Students submit their paper exam. (5 minutes)',
+            assessment_evaluate1: 'Collection and verification of all completed exam papers',
+            assessment_evaluate2: 'Teacher checks answers to evaluate understanding',
+            assessment_evaluate3: 'SLO-3 Reflective: Initial self-assessment of test difficulty and preparation',
+            WILF_1: `Recall and apply definitions, formulae, and methods across ${sel.unitTitle}.`,
+            WILF_2: 'Complete the Chapter End Test individually and independently within 55 minutes.',
+            WILF_3: 'Show full step-by-step working and correct mathematical units for all questions.',
+            formative_1: `Brief oral questioning during Engage (AO1)`,
+            formative_2: 'Teacher monitors the process in class (AO2/AO3)',
+            formative_3: 'Teacher checks answers to evaluate understanding',
+            postlesson_1: `Which specific questions or concepts in ${sel.unitTitle} showed common misconceptions?`,
+            postlesson_2: 'Did students manage their 55 minutes of test time effectively?',
+            postlesson_3: 'What targeted remediation is required before progressing to the next unit?',
+            nextlesson_1: 'Review common misconceptions and errors identified from the Chapter End Test.',
+            nextlesson_2: 'Provide targeted remediation for students who struggled on specific questions.',
+            nextlesson_3: `Transition to the next unit in Cambridge Year ${sel.yearGroupNumber} Mathematics.`,
+          }
+        : {}),
     });
   };
 
   const handleAutoBalanceTiming = () => {
-    const total = parseInt(plan.duration) || 80;
+    const total = parseTotalMinutes(plan.duration, 80);
+    const isUnitTest = plan.tittle_unit?.toLowerCase().includes('unit test');
+    if (isUnitTest) {
+      onUpdatePlan({
+        engage_t: '0-20 minutes',
+        explore_t: '20-20 minutes',
+        explain_t: '20-20 minutes',
+        elaborate_t: '20-75 minutes',
+        evaluate_t: '75-80 minutes',
+      });
+      return;
+    }
     const eng = Math.round(total * 0.125); // ~10m for 80m
     const exp = Math.round(total * 0.3125); // ~25m for 80m
     const expl = Math.round(total * 0.1875); // ~15m for 80m
     const elab = Math.round(total * 0.25); // ~20m for 80m
     const evalT = total - (eng + exp + expl + elab);
 
+    const t0 = 0;
+    const t1 = t0 + eng;
+    const t2 = t1 + exp;
+    const t3 = t2 + expl;
+    const t4 = t3 + elab;
+    const t5 = t4 + evalT;
+
     onUpdatePlan({
-      engage_t: eng.toString(),
-      explore_t: exp.toString(),
-      explain_t: expl.toString(),
-      elaborate_t: elab.toString(),
-      evaluate_t: evalT.toString(),
+      engage_t: `${t0}-${t1} minutes`,
+      explore_t: `${t1}-${t2} minutes`,
+      explain_t: `${t2}-${t3} minutes`,
+      elaborate_t: `${t3}-${t4} minutes`,
+      evaluate_t: `${t4}-${t5} minutes`,
     });
   };
 
@@ -166,7 +246,7 @@ export const LessonPlanForm: React.FC<LessonPlanFormProps> = ({
             <input
               type="text"
               readOnly
-              value={`Year ${plan.kelas} (SMP)`}
+              value={`Year ${plan.kelas}`}
               className="w-full text-xs p-2 rounded-lg border border-slate-200 bg-slate-100 text-slate-700 font-medium"
             />
           </div>
@@ -232,18 +312,18 @@ export const LessonPlanForm: React.FC<LessonPlanFormProps> = ({
         <div>
           <label className="block text-[11px] font-semibold text-slate-700 mb-1 flex items-center justify-between">
             <span>Total Lesson Duration</span>
-            <span className="text-slate-400 font-normal">Standard: 80 min (double period)</span>
+            <span className="text-slate-400 font-normal">Standard: 80 minutes (double period)</span>
           </label>
           <div className="flex items-center gap-2">
             <input
               type="text"
               value={plan.duration}
               onChange={(e) => onUpdatePlan({ duration: e.target.value })}
-              className="w-32 text-xs p-2 rounded-lg border border-slate-300 font-medium focus:border-teal-600 focus:ring-1 focus:ring-teal-600"
-              placeholder="80 min"
+              className="w-36 text-xs p-2 rounded-lg border border-slate-300 font-medium focus:border-teal-600 focus:ring-1 focus:ring-teal-600"
+              placeholder="80 minutes"
             />
             <div className="flex items-center gap-1">
-              {['45 min', '60 min', '80 min', '90 min'].map((dur) => (
+              {['45 minutes', '60 minutes', '80 minutes', '90 minutes'].map((dur) => (
                 <button
                   type="button"
                   key={dur}
@@ -342,7 +422,7 @@ export const LessonPlanForm: React.FC<LessonPlanFormProps> = ({
                 <AlertTriangle className="w-3 h-3 text-amber-600" />
               )}
               <span>
-                Sum: {sum5E} / {totalDurationMinutes} min
+                Sum: {sum5E} / {totalDurationMinutes} minutes
               </span>
             </span>
 
@@ -361,67 +441,57 @@ export const LessonPlanForm: React.FC<LessonPlanFormProps> = ({
         <div className="grid grid-cols-5 gap-2 text-center text-xs">
           <div className="p-2 rounded-lg bg-teal-50 border border-teal-200">
             <label className="block font-bold text-[#006064] text-[11px] mb-1">Engage</label>
-            <div className="flex items-center justify-center gap-1">
-              <input
-                type="text"
-                value={plan.engage_t}
-                onChange={(e) => onUpdatePlan({ engage_t: e.target.value })}
-                className="w-12 text-center text-xs font-semibold p-1 bg-white border border-teal-300 rounded"
-              />
-              <span className="text-[10px] text-slate-500">min</span>
-            </div>
+            <input
+              type="text"
+              value={plan.engage_t}
+              onChange={(e) => onUpdatePlan({ engage_t: e.target.value })}
+              className="w-full text-center text-xs font-semibold p-1 bg-white border border-teal-300 rounded"
+              placeholder="0-10 minutes"
+            />
           </div>
 
           <div className="p-2 rounded-lg bg-cyan-50 border border-cyan-200">
             <label className="block font-bold text-[#00838F] text-[11px] mb-1">Explore</label>
-            <div className="flex items-center justify-center gap-1">
-              <input
-                type="text"
-                value={plan.explore_t}
-                onChange={(e) => onUpdatePlan({ explore_t: e.target.value })}
-                className="w-12 text-center text-xs font-semibold p-1 bg-white border border-cyan-300 rounded"
-              />
-              <span className="text-[10px] text-slate-500">min</span>
-            </div>
+            <input
+              type="text"
+              value={plan.explore_t}
+              onChange={(e) => onUpdatePlan({ explore_t: e.target.value })}
+              className="w-full text-center text-xs font-semibold p-1 bg-white border border-cyan-300 rounded"
+              placeholder="10-35 minutes"
+            />
           </div>
 
           <div className="p-2 rounded-lg bg-blue-50 border border-blue-200">
             <label className="block font-bold text-[#2E5496] text-[11px] mb-1">Explain</label>
-            <div className="flex items-center justify-center gap-1">
-              <input
-                type="text"
-                value={plan.explain_t}
-                onChange={(e) => onUpdatePlan({ explain_t: e.target.value })}
-                className="w-12 text-center text-xs font-semibold p-1 bg-white border border-blue-300 rounded"
-              />
-              <span className="text-[10px] text-slate-500">min</span>
-            </div>
+            <input
+              type="text"
+              value={plan.explain_t}
+              onChange={(e) => onUpdatePlan({ explain_t: e.target.value })}
+              className="w-full text-center text-xs font-semibold p-1 bg-white border border-blue-300 rounded"
+              placeholder="35-50 minutes"
+            />
           </div>
 
           <div className="p-2 rounded-lg bg-orange-50 border border-orange-200">
             <label className="block font-bold text-[#E65100] text-[11px] mb-1">Elaborate</label>
-            <div className="flex items-center justify-center gap-1">
-              <input
-                type="text"
-                value={plan.elaborate_t}
-                onChange={(e) => onUpdatePlan({ elaborate_t: e.target.value })}
-                className="w-12 text-center text-xs font-semibold p-1 bg-white border border-orange-300 rounded"
-              />
-              <span className="text-[10px] text-slate-500">min</span>
-            </div>
+            <input
+              type="text"
+              value={plan.elaborate_t}
+              onChange={(e) => onUpdatePlan({ elaborate_t: e.target.value })}
+              className="w-full text-center text-xs font-semibold p-1 bg-white border border-orange-300 rounded"
+              placeholder="50-70 minutes"
+            />
           </div>
 
           <div className="p-2 rounded-lg bg-emerald-50 border border-emerald-200">
             <label className="block font-bold text-[#2E7D32] text-[11px] mb-1">Evaluate</label>
-            <div className="flex items-center justify-center gap-1">
-              <input
-                type="text"
-                value={plan.evaluate_t}
-                onChange={(e) => onUpdatePlan({ evaluate_t: e.target.value })}
-                className="w-12 text-center text-xs font-semibold p-1 bg-white border border-emerald-300 rounded"
-              />
-              <span className="text-[10px] text-slate-500">min</span>
-            </div>
+            <input
+              type="text"
+              value={plan.evaluate_t}
+              onChange={(e) => onUpdatePlan({ evaluate_t: e.target.value })}
+              className="w-full text-center text-xs font-semibold p-1 bg-white border border-emerald-300 rounded"
+              placeholder="70-80 minutes"
+            />
           </div>
         </div>
       </div>

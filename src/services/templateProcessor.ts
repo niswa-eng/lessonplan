@@ -1,6 +1,7 @@
 import PizZip from 'pizzip';
 import Docxtemplater from 'docxtemplater';
 import { LessonPlanData } from '../types/lessonPlan';
+import { formatPhaseTimeRange, formatDurationDisplay } from '../utils/timingUtils';
 
 let cachedTemplateBuffer: ArrayBuffer | null = null;
 let customTemplateBuffer: ArrayBuffer | null = null;
@@ -49,7 +50,7 @@ export function processDocxTemplate(
     lesson: data.lesson || '1',
     total_lesson: data.total_lesson || '1',
     kelas: data.kelas || '7',
-    duration: data.duration || '80 min',
+    duration: formatDurationDisplay(data.duration),
     date_L: data.date_L || '20',
     month_L: data.month_L || '10',
     year_L: data.year_L || '2026',
@@ -82,27 +83,27 @@ export function processDocxTemplate(
     extensiontask_1: data.extensiontask_1 || '',
     extensiontask_2: data.extensiontask_2 || '',
     extensiontask_3: data.extensiontask_3 || '',
-    engage_t: data.engage_t || '10',
+    engage_t: formatPhaseTimeRange('engage', data),
     engage: data.engage || '',
     assessment_engage1: data.assessment_engage1 || '',
     assessment_engage2: data.assessment_engage2 || '',
     assessment_engage3: data.assessment_engage3 || '',
-    explore_t: data.explore_t || '25',
+    explore_t: formatPhaseTimeRange('explore', data),
     explore: data.explore || '',
     assessment_explore1: data.assessment_explore1 || '',
     assessment_explore2: data.assessment_explore2 || '',
     assessment_explore3: data.assessment_explore3 || '',
-    explain_t: data.explain_t || '15',
+    explain_t: formatPhaseTimeRange('explain', data),
     explain: data.explain || '',
     assessment_explain1: data.assessment_explain1 || '',
     assessment_explain2: data.assessment_explain2 || '',
     assessment_explain3: data.assessment_explain3 || '',
-    elaborate_t: data.elaborate_t || '20',
+    elaborate_t: formatPhaseTimeRange('elaborate', data),
     elaborate: data.elaborate || '',
     assessment_elaborate1: data.assessment_elaborate1 || '',
     assessment_elaborate2: data.assessment_elaborate2 || '',
     assessment_elaborate3: data.assessment_elaborate3 || '',
-    evaluate_t: data.evaluate_t || '10',
+    evaluate_t: formatPhaseTimeRange('evaluate', data),
     evaluate: data.evaluate || '',
     assessment_evaluate1: data.assessment_evaluate1 || '',
     assessment_evaluate2: data.assessment_evaluate2 || '',

@@ -2,6 +2,8 @@ import React from 'react';
 import { LessonPlanData, ValidationIssue } from '../types/lessonPlan';
 import { CheckCircle2, AlertTriangle, Info, X } from 'lucide-react';
 
+import { parsePhaseMinutes, parseTotalMinutes } from '../utils/timingUtils';
+
 interface ValidationModalProps {
   plan: LessonPlanData;
   isOpen: boolean;
@@ -18,25 +20,25 @@ export const ValidationModal: React.FC<ValidationModalProps> = ({
   const issues: ValidationIssue[] = [];
 
   // 1. Duration check
-  const totalM = parseInt(plan.duration) || 80;
-  const engageM = parseInt(plan.engage_t) || 0;
-  const exploreM = parseInt(plan.explore_t) || 0;
-  const explainM = parseInt(plan.explain_t) || 0;
-  const elaborateM = parseInt(plan.elaborate_t) || 0;
-  const evaluateM = parseInt(plan.evaluate_t) || 0;
+  const totalM = parseTotalMinutes(plan.duration, 80);
+  const engageM = parsePhaseMinutes(plan.engage_t, 10);
+  const exploreM = parsePhaseMinutes(plan.explore_t, 25);
+  const explainM = parsePhaseMinutes(plan.explain_t, 15);
+  const elaborateM = parsePhaseMinutes(plan.elaborate_t, 20);
+  const evaluateM = parsePhaseMinutes(plan.evaluate_t, 10);
   const sum5E = engageM + exploreM + explainM + elaborateM + evaluateM;
 
   if (sum5E !== totalM) {
     issues.push({
       type: 'error',
       field: '5E Duration',
-      message: `Total duration (${totalM} min) does not match sum of 5E phases (${sum5E} min: Engage ${engageM}m + Explore ${exploreM}m + Explain ${explainM}m + Elaborate ${elaborateM}m + Evaluate ${evaluateM}m).`,
+      message: `Total duration (${totalM} minutes) does not match sum of 5E phases (${sum5E} minutes: Engage ${engageM}m + Explore ${exploreM}m + Explain ${explainM}m + Elaborate ${elaborateM}m + Evaluate ${evaluateM}m).`,
     });
   } else {
     issues.push({
       type: 'info',
       field: '5E Duration',
-      message: `Duration correctly balanced: total ${totalM} min matches 5E phases sum perfectly.`,
+      message: `Duration correctly balanced: total ${totalM} minutes matches 5E phases sum perfectly.`,
     });
   }
 
@@ -73,13 +75,13 @@ export const ValidationModal: React.FC<ValidationModalProps> = ({
   }
 
   // 4. CLIL Language terms
-  if (!plan.keyword || plan.keyword.length < 5) {
-    issues.push({
-      type: 'warning',
-      field: 'CLIL Language Objectives',
-      message: 'Key mathematical terms with English & Bahasa Indonesia equivalents should be listed.',
-    });
-  }
+    if (!plan.keyword || plan.keyword.length < 5) {
+      issues.push({
+        type: 'warning',
+        field: 'CLIL Language Objectives',
+        message: 'Key mathematical terms and definitions in English should be listed.',
+      });
+    }
 
   // 5. Cambridge AOs
   if (!plan.AO1 || !plan.AO2 || !plan.AO3) {

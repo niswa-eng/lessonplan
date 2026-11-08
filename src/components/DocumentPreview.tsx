@@ -20,6 +20,7 @@ import {
   hasCustomTemplate,
   clearCustomTemplate,
 } from '../services/templateProcessor';
+import { formatPhaseTimeRange, formatDurationDisplay } from '../utils/timingUtils';
 
 interface DocumentPreviewProps {
   plan: LessonPlanData;
@@ -321,7 +322,7 @@ export const DocumentPreview: React.FC<DocumentPreviewProps> = ({
                   <div className="grid grid-cols-4 divide-x divide-slate-300 bg-slate-50 text-[10px] border-b border-slate-300">
                     <div className="p-1.5">
                       <span className="font-bold text-teal-900 block text-[9.5px]">Year Group</span>
-                      <span>Year {plan.kelas} (SMP)</span>
+                      <span>Year {plan.kelas}</span>
                     </div>
                     <div className="p-1.5">
                       <span className="font-bold text-teal-900 block text-[9.5px]">Lesson</span>
@@ -331,7 +332,7 @@ export const DocumentPreview: React.FC<DocumentPreviewProps> = ({
                     </div>
                     <div className="p-1.5">
                       <span className="font-bold text-teal-900 block text-[9.5px]">Duration</span>
-                      <span>{plan.duration}</span>
+                      <span>{formatDurationDisplay(plan.duration)}</span>
                     </div>
                     <div className="p-1.5">
                       <span className="font-bold text-teal-900 block text-[9.5px]">Date</span>
@@ -558,7 +559,7 @@ export const DocumentPreview: React.FC<DocumentPreviewProps> = ({
                   ) : (
                     <span className="font-medium text-slate-900">{plan.keyword}</span>
                   )}
-                  . <span className="text-slate-600 italic">EAL students: bilingual vocabulary mat provided (English–Bahasa Indonesia).</span>
+                  . <span className="text-slate-600 italic">EAL students: visual mathematical vocabulary mat provided with definitions and sentence frames.</span>
                 </div>
 
                 {/* Differentiation Provisions */}
@@ -639,8 +640,8 @@ export const DocumentPreview: React.FC<DocumentPreviewProps> = ({
                         <div className="col-span-2 bg-[#006064] text-white font-bold p-1.5 flex items-center justify-center">
                           Engage
                         </div>
-                        <div className="col-span-1 p-1.5 text-center font-semibold text-slate-700 flex items-center justify-center">
-                          {plan.engage_t} min
+                        <div className="col-span-1 p-1.5 text-center font-semibold text-slate-700 flex items-center justify-center text-[9px]">
+                          {formatPhaseTimeRange('engage', plan)}
                         </div>
                         <div className="col-span-6 p-1.5 leading-snug text-slate-800">
                           {plan.engage}
@@ -663,8 +664,8 @@ export const DocumentPreview: React.FC<DocumentPreviewProps> = ({
                         <div className="col-span-2 bg-[#00838F] text-white font-bold p-1.5 flex items-center justify-center">
                           Explore
                         </div>
-                        <div className="col-span-1 p-1.5 text-center font-semibold text-slate-700 flex items-center justify-center">
-                          {plan.explore_t} min
+                        <div className="col-span-1 p-1.5 text-center font-semibold text-slate-700 flex items-center justify-center text-[9px]">
+                          {formatPhaseTimeRange('explore', plan)}
                         </div>
                         <div className="col-span-6 p-1.5 leading-snug text-slate-800">
                           {plan.explore}
@@ -687,8 +688,8 @@ export const DocumentPreview: React.FC<DocumentPreviewProps> = ({
                         <div className="col-span-2 bg-[#2E5496] text-white font-bold p-1.5 flex items-center justify-center">
                           Explain
                         </div>
-                        <div className="col-span-1 p-1.5 text-center font-semibold text-slate-700 flex items-center justify-center">
-                          {plan.explain_t} min
+                        <div className="col-span-1 p-1.5 text-center font-semibold text-slate-700 flex items-center justify-center text-[9px]">
+                          {formatPhaseTimeRange('explain', plan)}
                         </div>
                         <div className="col-span-6 p-1.5 leading-snug text-slate-800">
                           {plan.explain}
@@ -711,8 +712,8 @@ export const DocumentPreview: React.FC<DocumentPreviewProps> = ({
                         <div className="col-span-2 bg-[#E65100] text-white font-bold p-1.5 flex items-center justify-center">
                           Elaborate
                         </div>
-                        <div className="col-span-1 p-1.5 text-center font-semibold text-slate-700 flex items-center justify-center">
-                          {plan.elaborate_t} min
+                        <div className="col-span-1 p-1.5 text-center font-semibold text-slate-700 flex items-center justify-center text-[9px]">
+                          {formatPhaseTimeRange('elaborate', plan)}
                         </div>
                         <div className="col-span-6 p-1.5 leading-snug text-slate-800">
                           {plan.elaborate}
@@ -735,8 +736,8 @@ export const DocumentPreview: React.FC<DocumentPreviewProps> = ({
                         <div className="col-span-2 bg-[#2E7D32] text-white font-bold p-1.5 flex items-center justify-center">
                           Evaluate
                         </div>
-                        <div className="col-span-1 p-1.5 text-center font-semibold text-slate-700 flex items-center justify-center">
-                          {plan.evaluate_t} min
+                        <div className="col-span-1 p-1.5 text-center font-semibold text-slate-700 flex items-center justify-center text-[9px]">
+                          {formatPhaseTimeRange('evaluate', plan)}
                         </div>
                         <div className="col-span-6 p-1.5 leading-snug text-slate-800">
                           {plan.evaluate}

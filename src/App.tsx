@@ -159,7 +159,7 @@ export default function App() {
               </span>
             </div>
             <p className="text-[11px] text-slate-400 truncate max-w-xs sm:max-w-md">
-              Year {plan.kelas} (SMP) • Unit {plan.unit}: {plan.tittle_unit} • Lesson {plan.lesson} of {plan.total_lesson}
+              Year {plan.kelas} • Unit {plan.unit}: {plan.tittle_unit} • Lesson {plan.lesson} of {plan.total_lesson}
             </p>
           </div>
         </div>

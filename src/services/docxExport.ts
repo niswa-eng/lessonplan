@@ -14,6 +14,7 @@ import {
   HeadingLevel,
 } from 'docx';
 import { LessonPlanData } from '../types/lessonPlan';
+import { formatPhaseTimeRange, formatDurationDisplay } from '../utils/timingUtils';
 
 export async function generateDocxBlob(data: LessonPlanData): Promise<Blob> {
   const font = 'Arial';
@@ -158,7 +159,7 @@ export async function generateDocxBlob(data: LessonPlanData): Promise<Blob> {
               new Paragraph({
                 children: [
                   new TextRun({ text: 'Year Group\n', font, size: 15, bold: true, color: '006064' }),
-                  new TextRun({ text: `Year ${data.kelas || '7'} (SMP)`, font, size: 16, color: '1E293B' }),
+                  new TextRun({ text: `Year ${data.kelas || '7'}`, font, size: 16, color: '1E293B' }),
                 ],
               }),
             ],
@@ -186,7 +187,7 @@ export async function generateDocxBlob(data: LessonPlanData): Promise<Blob> {
               new Paragraph({
                 children: [
                   new TextRun({ text: 'Duration\n', font, size: 15, bold: true, color: '006064' }),
-                  new TextRun({ text: data.duration || '80 min', font, size: 16, color: '1E293B' }),
+                  new TextRun({ text: formatDurationDisplay(data.duration), font, size: 16, color: '1E293B' }),
                 ],
               }),
             ],
@@ -435,7 +436,7 @@ export async function generateDocxBlob(data: LessonPlanData): Promise<Blob> {
                 children: [
                   new TextRun({ text: 'Language Objectives (CLIL): ', font, size: 16, bold: true, color: primaryTeal }),
                   new TextRun({ text: `Key terms: ${data.keyword || ''}. `, font, size: 16, color: '0F172A' }),
-                  new TextRun({ text: 'EAL students: bilingual vocabulary mat provided (English–Bahasa Indonesia).', font, size: 15, italics: true, color: '475569' }),
+                  new TextRun({ text: 'EAL students: visual mathematical vocabulary mat provided with definitions and sentence frames.', font, size: 15, italics: true, color: '475569' }),
                 ],
               }),
             ],
@@ -594,7 +595,7 @@ export async function generateDocxBlob(data: LessonPlanData): Promise<Blob> {
           new TableCell({
             borders: defaultBorder,
             margins: { top: 80, bottom: 80, left: 60, right: 60 },
-            children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: `${data.engage_t || '10'} min`, font, size: 15, bold: true, color: '1E293B' })] })],
+            children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: formatPhaseTimeRange('engage', data), font, size: 14, bold: true, color: '1E293B' })] })],
           }),
           new TableCell({
             borders: defaultBorder,
@@ -623,7 +624,7 @@ export async function generateDocxBlob(data: LessonPlanData): Promise<Blob> {
           new TableCell({
             borders: defaultBorder,
             margins: { top: 80, bottom: 80, left: 60, right: 60 },
-            children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: `${data.explore_t || '25'} min`, font, size: 15, bold: true, color: '1E293B' })] })],
+            children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: formatPhaseTimeRange('explore', data), font, size: 14, bold: true, color: '1E293B' })] })],
           }),
           new TableCell({
             borders: defaultBorder,
@@ -652,7 +653,7 @@ export async function generateDocxBlob(data: LessonPlanData): Promise<Blob> {
           new TableCell({
             borders: defaultBorder,
             margins: { top: 80, bottom: 80, left: 60, right: 60 },
-            children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: `${data.explain_t || '15'} min`, font, size: 15, bold: true, color: '1E293B' })] })],
+            children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: formatPhaseTimeRange('explain', data), font, size: 14, bold: true, color: '1E293B' })] })],
           }),
           new TableCell({
             borders: defaultBorder,
@@ -681,7 +682,7 @@ export async function generateDocxBlob(data: LessonPlanData): Promise<Blob> {
           new TableCell({
             borders: defaultBorder,
             margins: { top: 80, bottom: 80, left: 60, right: 60 },
-            children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: `${data.elaborate_t || '20'} min`, font, size: 15, bold: true, color: '1E293B' })] })],
+            children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: formatPhaseTimeRange('elaborate', data), font, size: 14, bold: true, color: '1E293B' })] })],
           }),
           new TableCell({
             borders: defaultBorder,
@@ -710,7 +711,7 @@ export async function generateDocxBlob(data: LessonPlanData): Promise<Blob> {
           new TableCell({
             borders: defaultBorder,
             margins: { top: 80, bottom: 80, left: 60, right: 60 },
-            children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: `${data.evaluate_t || '10'} min`, font, size: 15, bold: true, color: '1E293B' })] })],
+            children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: formatPhaseTimeRange('evaluate', data), font, size: 14, bold: true, color: '1E293B' })] })],
           }),
           new TableCell({
             borders: defaultBorder,

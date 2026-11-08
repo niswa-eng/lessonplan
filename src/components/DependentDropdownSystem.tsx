@@ -245,7 +245,7 @@ export const DependentDropdownSystem: React.FC<DependentDropdownSystemProps> = (
             </option>
             {CAMBRIDGE_GRADES.map((g) => (
               <option key={g.id} value={g.id}>
-                {g.id} (Year {g.yearGroupNumber} SMP)
+                {g.id} (Year {g.yearGroupNumber})
               </option>
             ))}
           </select>

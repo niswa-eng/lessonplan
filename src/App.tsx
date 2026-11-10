@@ -59,24 +59,29 @@ export default function App() {
         }),
       });
 
-      // Check res.ok before res.json() to prevent HTML 404/500 JSON parse crashes
+      // Read response body once as text to prevent "body stream already read" errors
+      const rawText = await res.text();
+      let data: any = null;
+      try {
+        data = JSON.parse(rawText);
+      } catch {
+        // rawText is non-JSON (e.g. HTML 404/500/504 error page)
+      }
+
       if (!res.ok) {
         let errorMessage = `Server error (HTTP ${res.status})`;
-        try {
-          const errData = await res.json();
-          console.error('Gemini API Error Response:', res.status, errData);
-          errorMessage = errData.error || errData.message || errorMessage;
-        } catch {
-          const rawText = await res.text();
+        if (data && (data.error || data.message)) {
+          console.error('Gemini API Error Response:', res.status, data);
+          errorMessage = data.error || data.message;
+        } else {
           console.error('Gemini API Non-JSON Response:', res.status, rawText);
-          errorMessage = rawText || errorMessage;
+          errorMessage = rawText ? (rawText.length > 300 ? rawText.slice(0, 300) + '...' : rawText) : errorMessage;
         }
         throw new Error(errorMessage);
       }
 
-      const data = await res.json();
-      if (!data.success || !data.plan) {
-        throw new Error(data.error || 'Failed to generate plan');
+      if (!data || !data.success || !data.plan) {
+        throw new Error((data && data.error) || 'Failed to generate plan');
       }
 
       setPlan(data.plan);
@@ -109,24 +114,29 @@ export default function App() {
         }),
       });
 
-      // Check res.ok before res.json()
+      // Read response body once as text to prevent "body stream already read" errors
+      const rawText = await res.text();
+      let data: any = null;
+      try {
+        data = JSON.parse(rawText);
+      } catch {
+        // rawText is non-JSON
+      }
+
       if (!res.ok) {
         let errorMessage = `Server error (HTTP ${res.status})`;
-        try {
-          const errData = await res.json();
-          console.error('Gemini API Error Response:', res.status, errData);
-          errorMessage = errData.error || errData.message || errorMessage;
-        } catch {
-          const rawText = await res.text();
+        if (data && (data.error || data.message)) {
+          console.error('Gemini API Error Response:', res.status, data);
+          errorMessage = data.error || data.message;
+        } else {
           console.error('Gemini API Non-JSON Response:', res.status, rawText);
-          errorMessage = rawText || errorMessage;
+          errorMessage = rawText ? (rawText.length > 300 ? rawText.slice(0, 300) + '...' : rawText) : errorMessage;
         }
         throw new Error(errorMessage);
       }
 
-      const data = await res.json();
-      if (!data.success || !data.updatedFields) {
-        throw new Error(data.error || 'Failed to regenerate section');
+      if (!data || !data.success || !data.updatedFields) {
+        throw new Error((data && data.error) || 'Failed to regenerate section');
       }
 
       setPlan((prev) => ({

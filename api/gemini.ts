@@ -102,28 +102,108 @@ function sendResponse(res: any, statusCode: number, data: any) {
   });
 }
 
-// Robust model invocation with automatic fallbacks to ensure compatibility with all API keys
+async function callTencentHunyuan({
+  apiKey,
+  systemInstruction,
+  prompt,
+  jsonMode,
+}: {
+  apiKey: string;
+  systemInstruction?: string;
+  prompt: string;
+  jsonMode?: boolean;
+}) {
+  const tencentUrl = process.env.TENCENT_BASE_URL || 'https://hunyuan.cloud.tencent.com/openai/v1/chat/completions';
+  const model = process.env.TENCENT_MODEL || 'hy3';
+
+  const messages: any[] = [];
+  if (systemInstruction) {
+    messages.push({
+      role: 'system',
+      content: systemInstruction + (jsonMode ? ' Respond strictly in valid JSON format matching requested schema.' : ''),
+    });
+  }
+  messages.push({ role: 'user', content: prompt });
+
+  const resp = await fetch(tencentUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify({
+      model,
+      messages,
+      temperature: 0.7,
+      stream: false,
+    }),
+  });
+
+  if (!resp.ok) {
+    const errText = await resp.text();
+    throw new Error(`Tencent Hunyuan API error (HTTP ${resp.status}): ${errText}`);
+  }
+
+  const data = await resp.json();
+  const text = data?.choices?.[0]?.message?.content || '';
+  return { text };
+}
+
+// Robust model invocation with automatic fallbacks across Gemini models and Tencent Hunyuan
 async function generateWithFallback(ai: any, params: any) {
-  const modelsToTry = [params.model || 'gemini-3.8-flash', 'gemini-2.5-flash', 'gemini-2.0-flash'];
+  const geminiKey = process.env.GEMINI_API_KEY;
+  const tencentKey = process.env.TENCENT_API_KEY || process.env.HUNYUAN_API_KEY;
+
+  const systemInstruction = params.config?.systemInstruction || 'You are an expert Cambridge Mathematics curriculum designer.';
+  const prompt = params.contents || '';
+  const responseSchema = params.config?.responseSchema;
+  const jsonMode = Boolean(responseSchema || params.config?.responseMimeType === 'application/json');
+
   let lastError: any = null;
 
-  for (const model of modelsToTry) {
-    try {
-      return await ai.models.generateContent({
-        ...params,
-        model,
-      });
-    } catch (err: any) {
-      lastError = err;
-      const errMsg = String(err?.message || '');
-      console.warn(`Model ${model} attempt result:`, errMsg);
-      if (errMsg.includes('not found') || errMsg.includes('404') || errMsg.includes('unsupported') || errMsg.includes('INVALID_ARGUMENT')) {
-        continue;
+  // Try Gemini first if key exists
+  if (geminiKey && ai) {
+    const modelsToTry = [params.model || 'gemini-3.8-flash', 'gemini-2.5-flash', 'gemini-2.0-flash'];
+    for (const model of modelsToTry) {
+      try {
+        const res = await ai.models.generateContent({
+          ...params,
+          model,
+        });
+        if (res && res.text) {
+          return { text: res.text };
+        }
+      } catch (err: any) {
+        lastError = err;
+        const errMsg = String(err?.message || '');
+        console.warn(`Model ${model} attempt result:`, errMsg);
+        if (errMsg.includes('not found') || errMsg.includes('404') || errMsg.includes('unsupported') || errMsg.includes('INVALID_ARGUMENT')) {
+          continue;
+        }
       }
-      throw err;
     }
   }
-  throw lastError;
+
+  // Fallback or primary: Tencent Hunyuan (OpenAI-compatible)
+  if (tencentKey) {
+    try {
+      console.log('Attempting generation with Tencent Hunyuan (Hunyuan API)...');
+      const res = await callTencentHunyuan({
+        apiKey: tencentKey,
+        systemInstruction,
+        prompt,
+        jsonMode,
+      });
+      if (res && res.text) {
+        return { text: res.text };
+      }
+    } catch (tErr: any) {
+      console.error('Tencent Hunyuan call failed:', tErr?.message);
+      lastError = tErr;
+    }
+  }
+
+  throw lastError || new Error('All AI providers failed. Please verify your GEMINI_API_KEY or TENCENT_API_KEY in Vercel Environment Variables.');
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {

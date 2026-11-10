@@ -1,37 +1,185 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { GoogleGenAI, Type } from '@google/genai';
-import { formatPhaseTimeRange, formatDurationDisplay, parseTotalMinutes } from '../src/utils/timingUtils';
+
+// Self-contained timing utilities to prevent cross-directory ESM module resolution failures on Vercel
+function parsePhaseMinutes(val: string | undefined | null, defaultVal: number = 0): number {
+  if (!val) return defaultVal;
+  const str = String(val).trim();
+  const rangeMatch = str.match(/(\d+)\s*[-–—]\s*(\d+)/);
+  if (rangeMatch) {
+    const start = parseInt(rangeMatch[1], 10);
+    const end = parseInt(rangeMatch[2], 10);
+    return Math.max(0, end - start);
+  }
+  const singleMatch = str.match(/\d+/);
+  return singleMatch ? parseInt(singleMatch[0], 10) : defaultVal;
+}
+
+function parseTotalMinutes(duration: string | undefined | null, defaultVal: number = 80): number {
+  if (!duration) return defaultVal;
+  const match = String(duration).match(/\d+/);
+  return match ? parseInt(match[0], 10) : defaultVal;
+}
+
+function formatPhaseTimeRange(
+  phase: 'engage' | 'explore' | 'explain' | 'elaborate' | 'evaluate',
+  data: {
+    duration?: string;
+    engage_t?: string;
+    explore_t?: string;
+    explain_t?: string;
+    elaborate_t?: string;
+    evaluate_t?: string;
+    tittle_unit?: string;
+  }
+): string {
+  const currentVal = data[`${phase}_t` as keyof typeof data];
+  const str = currentVal ? String(currentVal).trim() : '';
+
+  const explicitRangeMatch = str.match(/^(\d+)\s*[-–—]\s*(\d+)(?:\s*(?:minutes?|mins?))?$/i);
+  if (explicitRangeMatch) {
+    return `${explicitRangeMatch[1]}-${explicitRangeMatch[2]} minutes`;
+  }
+
+  const isUnitTest = (data.tittle_unit || '').toLowerCase().includes('unit test');
+  const engDur = parsePhaseMinutes(data.engage_t, isUnitTest ? 20 : 10);
+  const expDur = parsePhaseMinutes(data.explore_t, isUnitTest ? 0 : 25);
+  const explDur = parsePhaseMinutes(data.explain_t, isUnitTest ? 0 : 15);
+  const elabDur = parsePhaseMinutes(data.elaborate_t, isUnitTest ? 55 : 20);
+  const evalDur = parsePhaseMinutes(data.evaluate_t, isUnitTest ? 5 : 10);
+
+  const t0 = 0;
+  const t1 = t0 + engDur;
+  const t2 = t1 + expDur;
+  const t3 = t2 + explDur;
+  const t4 = t3 + elabDur;
+  const t5 = t4 + evalDur;
+
+  switch (phase) {
+    case 'engage':
+      return `${t0}-${t1} minutes`;
+    case 'explore':
+      return `${t1}-${t2} minutes`;
+    case 'explain':
+      return `${t2}-${t3} minutes`;
+    case 'elaborate':
+      return `${t3}-${t4} minutes`;
+    case 'evaluate':
+      return `${t4}-${t5} minutes`;
+  }
+}
+
+function formatDurationDisplay(duration: string | undefined | null): string {
+  if (!duration) return '80 minutes';
+  const mins = parseTotalMinutes(duration, 80);
+  return `${mins} minutes`;
+}
+
+// Set maximum duration for Vercel Serverless Function (up to 60s)
+export const maxDuration = 60;
+
+function sendResponse(res: any, statusCode: number, data: any) {
+  try {
+    if (res) {
+      if (typeof res.status === 'function' && typeof res.json === 'function') {
+        return res.status(statusCode).json(data);
+      }
+      res.statusCode = statusCode;
+      if (res.setHeader && !res.headersSent) {
+        res.setHeader('Content-Type', 'application/json');
+      }
+      res.end(JSON.stringify(data));
+      return;
+    }
+  } catch (e) {
+    console.error('sendResponse node error:', e);
+  }
+
+  // Web Standard Response fallback (Edge / Web API runtime)
+  return new Response(JSON.stringify(data), {
+    status: statusCode,
+    headers: { 'Content-Type': 'application/json' },
+  });
+}
+
+// Robust model invocation with automatic fallbacks to ensure compatibility with all API keys
+async function generateWithFallback(ai: any, params: any) {
+  const modelsToTry = [params.model || 'gemini-3.8-flash', 'gemini-2.5-flash', 'gemini-2.0-flash'];
+  let lastError: any = null;
+
+  for (const model of modelsToTry) {
+    try {
+      return await ai.models.generateContent({
+        ...params,
+        model,
+      });
+    } catch (err: any) {
+      lastError = err;
+      const errMsg = String(err?.message || '');
+      console.warn(`Model ${model} attempt result:`, errMsg);
+      if (errMsg.includes('not found') || errMsg.includes('404') || errMsg.includes('unsupported') || errMsg.includes('INVALID_ARGUMENT')) {
+        continue;
+      }
+      throw err;
+    }
+  }
+  throw lastError;
+}
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  // Ensure JSON response headers
-  res.setHeader('Content-Type', 'application/json');
-
-  if (req.method !== 'POST') {
-    return res.status(405).json({
-      success: false,
-      error: 'Method not allowed. Please use POST.',
-    });
-  }
-
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
-    return res.status(500).json({
-      success: false,
-      error: 'GEMINI_API_KEY environment variable is missing on the server.',
-    });
-  }
-
-  const ai = new GoogleGenAI({
-    apiKey,
-    httpOptions: {
-      headers: {
-        'User-Agent': 'aistudio-build-vercel',
-      },
-    },
-  });
-
   try {
-    const body = req.body || {};
+    // Ensure JSON response headers if in Node.js runtime
+    if (res && res.setHeader && !res.headersSent) {
+      res.setHeader('Content-Type', 'application/json');
+    }
+
+    if (req.method && req.method !== 'POST') {
+      return sendResponse(res, 405, {
+        success: false,
+        error: 'Method not allowed. Please use POST.',
+      });
+    }
+
+    // Safely parse request body across Web Standard Request and Node VercelRequest
+    let body: any = {};
+    if (req && typeof (req as any).json === 'function') {
+      try {
+        body = await (req as any).json();
+      } catch {
+        body = {};
+      }
+    } else if (req && (req as any).body) {
+      body = (req as any).body;
+      if (typeof body === 'string') {
+        try {
+          body = JSON.parse(body);
+        } catch {
+          body = {};
+        }
+      }
+    }
+    if (!body || typeof body !== 'object') {
+      body = {};
+    }
+
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      console.error('GEMINI_API_KEY environment variable is missing.');
+      return sendResponse(res, 500, {
+        success: false,
+        error: 'GEMINI_API_KEY environment variable is missing on the server. Please add GEMINI_API_KEY in your Vercel Project Settings > Environment Variables.',
+      });
+    }
+
+    const ai = new GoogleGenAI({
+      apiKey,
+      httpOptions: {
+        headers: {
+          'User-Agent': 'aistudio-build-vercel',
+        },
+      },
+    });
+
     const { action, prompt: rawPrompt } = body;
 
     // Mode 1: Section Regeneration
@@ -153,7 +301,7 @@ Please regenerate the requested section matching the required JSON schema.
         };
       }
 
-      const response = await ai.models.generateContent({
+      const response = await generateWithFallback(ai, {
         model: 'gemini-3.8-flash',
         contents: prompt,
         config: {
@@ -169,7 +317,7 @@ Please regenerate the requested section matching the required JSON schema.
         parsed.assessment_evaluate2 = parsed.assessment_evaluate2 || 'Teacher checks answers to evaluate understanding';
       }
 
-      return res.status(200).json({
+      return sendResponse(res, 200, {
         success: true,
         updatedFields: parsed,
         text: response.text,
@@ -178,14 +326,14 @@ Please regenerate the requested section matching the required JSON schema.
 
     // Mode 2: Raw prompt if supplied directly without structured lesson plan parameters
     if (rawPrompt && !body.tittle_unit && !body.userObjectives) {
-      const response = await ai.models.generateContent({
+      const response = await generateWithFallback(ai, {
         model: body.model || 'gemini-3.8-flash',
         contents: rawPrompt,
         config: {
           systemInstruction: body.systemInstruction || 'You are an expert Cambridge Mathematics curriculum designer.',
         },
       });
-      return res.status(200).json({
+      return sendResponse(res, 200, {
         success: true,
         text: response.text,
       });
@@ -322,7 +470,7 @@ CRITICAL GUIDELINES:
 11. Slide location & Learner's Book reference.
 `;
 
-    const response = await ai.models.generateContent({
+    const response = await generateWithFallback(ai, {
       model: 'gemini-3.8-flash',
       contents: prompt,
       config: {
@@ -505,14 +653,14 @@ CRITICAL GUIDELINES:
       plan.assessment_evaluate2 = 'Teacher checks answers to evaluate understanding';
     }
 
-    return res.status(200).json({
+    return sendResponse(res, 200, {
       success: true,
       plan,
       text: response.text,
     });
   } catch (err: any) {
     console.error('Error in /api/gemini:', err);
-    return res.status(500).json({
+    return sendResponse(res, 500, {
       success: false,
       error: err.message || 'Failed to process request with Gemini AI',
     });
